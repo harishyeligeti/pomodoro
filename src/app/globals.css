@@ -6,6 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --pomodoro-parent: #38848a;
+  --pomodoro-child: #4e9196;
+  --shortBreak-parent: #397097;
+  --shortBreak-child: #4f7fa2;
+  --longBreak-parent: #ba4849;
+  --longBreak-child: #c25c5c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,12 +24,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {

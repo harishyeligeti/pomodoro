@@ -1,12 +1,25 @@
+"use client";
 import Image from "next/image";
 import TimerDisplay from "./components/TimerDisplay";
+import { useState } from "react";
 
 export default function Home() {
+  const [active, setActive] = useState("pomodoro");
 
+  const getHomeColor =
+    active === "pomodoro"
+      ? "bg-[var(--pomodoro-parent)] "
+      : active === "shortBreak"
+      ? "bg-[var(--shortBreak-parent)] "
+      : active === "longBreak"
+      ? "bg-[var(--longBreak-parent)] "
+      : ""
   return (
-    <main className="flex min-h-screen flex-col font-mono text-white items-center justify-between p-24 bg-[#38848A]">
+    <main
+      className={`flex min-h-screen flex-col font-mono text-white items-center justify-between p-24 ${getHomeColor}`}
+    >
       <div>
-        <TimerDisplay/>
+        <TimerDisplay active={active} setActive={setActive} />
       </div>
     </main>
   );

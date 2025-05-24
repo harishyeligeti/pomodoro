@@ -7,10 +7,14 @@ const modes = {
   longBreak: 15 * 60,
 };
 
-const TimerDisplay = () => {
+ interface TimerDisplayProps {
+  active:string,
+  setActive: React.Dispatch<React.SetStateAction<string>>
+ }
+
+const TimerDisplay: React.FC<TimerDisplayProps> = ({active, setActive}) => {
   const [secondsLeft, setSecondsLeft] = useState(modes.pomodoro);// for updating timerr seconds
   const [isRunning, setIsRunning] = useState(false);
-  const [active, setActive] = useState("pomodoro-child")
   const intervalRef = useRef<any>(null); // update timerId without re rendering
 
   //format time
@@ -70,13 +74,23 @@ const TimerDisplay = () => {
     console.log("reset");
   };
 
+  //dynamically update color of the page
+  const getChildColor =
+  active === "pomodoro"
+    ? "bg-[var(--pomodoro-child)] "
+    : active === "shortBreak"
+    ? "bg-[var(--shortBreak-child)] "
+    : active === "longBreak"
+    ? "bg-[var(--longBreak-child)] "
+    : ""
+
   return (
     <>
-      <div className= {` items-center rounded-lg text-center bg-[var ]`}>
+      <div className= {` items-center rounded-lg text-center ${getChildColor}`}>
         <div className="flex justify-between gap-4 text-xl p-4">
-          <button className=" px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700 " onClick={()=>{setActive("pomodoro-child")}}>pomodoro</button>
-          <button className=" px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700  " onClick={()=>{setActive("shortBreak-child")}}>Short break</button>
-          <button className=" px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700  " onClick={()=>{setActive("longBreak-child")}}>Long break</button>
+          <button className=" px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700 " onClick={()=>{setActive("pomodoro")}}>pomodoro</button>
+          <button className=" px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700  " onClick={()=>{setActive("shortBreak")}}>Short break</button>
+          <button className=" px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700  " onClick={()=>{setActive("longBreak")}}>Long break</button>
         </div>
         <div className="p-4 mt-4">
           <span className="text-9xl font-mono font-bold  ">{formatTime(secondsLeft)}</span>

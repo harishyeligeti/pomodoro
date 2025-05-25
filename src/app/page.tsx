@@ -3,12 +3,21 @@ import Image from "next/image";
 import TimerDisplay from "./components/TimerDisplay";
 import { useState } from "react";
 
+// const modes = {
+//   pomodoro: 25 * 60,
+//   shortBreak: 5 * 60,
+//   longBreak: 15 * 60,
+// };
+
 export default function Home() {
   const [active, setActive] = useState("pomodoro");
+  // const [mode, setMode] = useState(modes.pomodoro);
+
+
 
   const getHomeColor =
     active === "pomodoro"
-      ? "bg-[var(--pomodoro-parent)] "
+      ? "bg-[var(--pomodoro-parent)]"
       : active === "shortBreak"
       ? "bg-[var(--shortBreak-parent)] "
       : active === "longBreak"

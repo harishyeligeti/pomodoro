@@ -2,16 +2,16 @@
 import React, {  useEffect, useRef, useState } from "react";
 import { FormatTime } from "./formatTime";
 
-// const modes = {
-//   pomodoro: 25 * 60,
-//   shortBreak: 5 * 60,
-//   longBreak: 15 * 60,
-// };
 const modes = {
-  pomodoro: 2,
-  shortBreak: 2,
-  longBreak: 2,
+  pomodoro: 25 * 60,
+  shortBreak: 5 * 60,
+  longBreak: 15 * 60,
 };
+// const modes = {
+//   pomodoro: 2,
+//   shortBreak: 2,
+//   longBreak: 2,
+// };
 
 interface TimerDisplayProps {
   active: string;
@@ -59,8 +59,10 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ active, setActive }) => {
         setSecondsLeft(isLongBreak ? modes.longBreak : modes.shortBreak);
         setIsRunning(false);
       }
-      else if(active == "longBreak"){
+      else if(active == "longBreak"){// stop timer after completing one loop
+        setActive("pomodoro")
         setIsRunning(false)
+        resetTimer()
       }
        else {
         setActive("pomodoro");
@@ -140,9 +142,9 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ active, setActive }) => {
   return (
     <>
       <div className={` items-center rounded-lg text-center ${getChildColor}`}>
-        <div className="flex justify-between gap-4 text-xl p-4">
+        <div className="flex justify-between gap-2 md:gap-4 text-xs  md:text-xl p-4">
           <button
-            className={` px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700 ${
+            className={` px-2 py-1 md:px-4 md:py-2 hover:bg-[#437C80] rounded-lg duration-700 ${
               active === "pomodoro" ? "bg-[var(--buttonActive)]" : ""
             }`}
             onClick={() => {
@@ -153,7 +155,7 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ active, setActive }) => {
             Pomodoro
           </button>
           <button
-            className={` px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700 ${
+            className={` px-2 py-1 md:px-4 md:py-2 hover:bg-[#437C80] rounded-lg duration-700 ${
               active === "shortBreak" ? "bg-[var(--buttonActive)]" : ""
             } `}
             onClick={() => {
@@ -164,7 +166,7 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ active, setActive }) => {
             Short break
           </button>
           <button
-            className={` px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700 ${
+            className={` px-4 py-1 md:px-4 md:py-2 hover:bg-[#437C80] rounded-lg duration-700 ${
               active === "longBreak" ? "bg-[var(--buttonActive)]" : ""
             } `}
             onClick={() => {
@@ -172,19 +174,19 @@ const TimerDisplay: React.FC<TimerDisplayProps> = ({ active, setActive }) => {
               setSecondsLeft(modes.longBreak);
             }}
           >
-            Long break
+            Long break 
           </button>
         </div>
         <div className="p-4 mt-4">
-          <span className="text-9xl font-mono font-bold  ">
+          <span className=" text-7xl md:text-9xl font-mono font-bold  ">
             <FormatTime secondsLeft={secondsLeft} />
           </span>
         </div>
-        <div className="text-4xl flex justify-around gap-4 p-4">
-          <button className="px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700" onClick={startTimer}>
+        <div className="text-2xl md:text-4xl flex justify-around gap-4 p-4">
+          <button className=" sm:px-2 sm:py-1 md:px-4 md:py-2 hover:bg-[#437C80] rounded-lg duration-700" onClick={startTimer}>
             Start
           </button>
-          <button className="px-4 py-2 hover:bg-[#437C80] rounded-lg duration-700" onClick={resetTimer}>
+          <button className=" sm:py-2 sm:px-1 md:px-4 md:py-2 hover:bg-[#437C80] rounded-lg duration-700" onClick={resetTimer}>
             Reset
           </button>
         </div>
